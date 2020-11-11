@@ -38,7 +38,7 @@ spring:
     username: postgres
     password: ekoloji
 server:
-  port: 8088
+  port: 8080
 
 ---
 
