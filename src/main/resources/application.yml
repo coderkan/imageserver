@@ -1,0 +1,62 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+    show-sql: true
+    properties:
+      hibernate:
+        show_sql: true 
+    database: postgresql
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 400MB
+      max-request-size: 600MB
+      
+                     
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+      FAIL_ON_EMPTY_BEANS: false
+    deserialization:
+      unwrap-root-value: false
+
+  profiles:
+    active:
+    - dev
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+
+
+---
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: ekoloji
+server:
+  port: 8088
+
+---
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        exclude: "*"
+                  
+  endpoint:
+    shutdown:
+      enabled: true
+      
+    
+spring:
+  jpa:
+    properties:
+      hibernate:
+      temp:
+      use_jdbc_metadata_defaults: false
