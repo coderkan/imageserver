@@ -255,7 +255,7 @@ curl -X GET http://localhost:8080/listImages | json_pp
 ## Usage Of Project
 
 
-## Steps to Setup
+## Steps to Setup Without Docker Compose
 
 **1. Clone the repository** 
 
@@ -271,7 +271,16 @@ cd imageserver
 mvn spring-boot:run
 ```
 
+
+**3. Run the PostgreSQL database with Docker**
+
+```bash
+docker run --name m-postgres -p 5432:5432 -e POSTGRES_PASSWORD=ekoloji -d postgres
+```
+
 That's it! The application can be accessed at `http://localhost:8080`.
+
+You can also send some requests to `http://localhost:8080`. 
 
 You may also package the application in the form of a jar and then run the jar file like so -
 
@@ -279,3 +288,73 @@ You may also package the application in the form of a jar and then run the jar f
 mvn clean package
 java -jar target/imageserver-0.0.1-SNAPSHOT.jar
 ```
+
+
+## Steps to Setup With Docker Compose
+
+**1. Steps With Docker Compose**
+
+```bash
+git clone https://github.com/coderkan/imageserver.git
+
+cd imageserver
+
+mvn clean install
+```
+
+DockerFile detail.
+
+```yml
+FROM openjdk:11
+ADD ./target/imageserver-0.0.1-SNAPSHOT.jar /usr/src/imageserver-0.0.1-SNAPSHOT.jar
+WORKDIR usr/src
+ENTRYPOINT ["java","-jar", "imageserver-0.0.1-SNAPSHOT.jar"]
+```
+
+
+Docker Compose file detail.
+
+```bash
+version: '3'
+
+services:
+  db:
+    image: "postgres"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ekoloji
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db/postgres
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: ekoloji
+    depends_on:
+      - db
+```
+
+Build docker-compose command.
+
+```bash
+docker-compose build
+```
+
+Run docker-compose
+
+```bash
+docker-compose up
+```
+
+Stop docker-compose
+
+```bash
+docker-compose down
+```
+
+You can also send some requests to `http://localhost:8080`. 
+
