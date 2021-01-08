@@ -73,7 +73,7 @@ GET		/api/show/200/400/FILE_NAME
 >Upload single image request.
 
 ```bash
-curl -X POST -H "Content-Type: multipart/form-data"  -F "file=@image1.jpg" http://localhost:8088/api/upload  | json_pp
+curl -X POST -H "Content-Type: multipart/form-data"  -F "file=@image1.jpg" http://localhost:8080/api/upload  | json_pp
 ```
 >Upload single image response.
 ```json	
@@ -355,6 +355,8 @@ Stop docker-compose
 ```bash
 docker-compose down
 ```
+
+Sample images (`images/samples`) created by [Piyapong Saydaung](https://pixabay.com/tr/users/saydung89-18713596/)
 
 You can also send some requests to `http://localhost:8080`. 
 
