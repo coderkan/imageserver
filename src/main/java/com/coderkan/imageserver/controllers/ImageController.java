@@ -136,7 +136,7 @@ public class ImageController {
 	 * @param height   image height
 	 * @return return valid byte array
 	 */
-	@GetMapping("/show/{width}/{height}/{fileName}")
+	@GetMapping("/show/{width}/{height}/{fileName:.+}")
 	public ResponseEntity<byte[]> getScaledImage(@PathVariable int width, @PathVariable int height,
 			@PathVariable String fileName) throws Exception {
 		Image image = getImageByName(fileName, width, height);

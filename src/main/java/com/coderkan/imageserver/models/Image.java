@@ -4,13 +4,11 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.UUID;
 
-import javax.activation.FileTypeMap;
 import javax.imageio.ImageIO;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,8 +17,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.coderkan.imageserver.helpers.FileNameHelper;
@@ -115,16 +112,26 @@ public class Image extends BaseEntity {
 	}
 
 	/**
+	 * @param fileName - filename of the resources.
+	 * 
+	 * @return inputstream for image
+	 * */
+	private static InputStream getResourceFileAsInputStream(String fileName) {
+	    ClassLoader classLoader = Image.class.getClassLoader();
+	    return classLoader.getResourceAsStream(fileName);
+	}
+	
+	/**
 	 * Generate no context image with `notfound.jpg` image in asset.
 	 * 
 	 * @return create default image.
 	 */
 	@Transient
 	public static Image defaultImage() throws Exception {
-		Resource resource = new ClassPathResource("notfound.jpg");
-		File file = resource.getFile();
-		String fileType = FileTypeMap.getDefaultFileTypeMap().getContentType(file);
-		Image image = new Image(null, fileType, 0, null, null, Files.readAllBytes(file.toPath()));
+	    InputStream is = getResourceFileAsInputStream("notfound.jpg");
+		String fileType = "image/jpeg";
+		byte[] bdata = FileCopyUtils.copyToByteArray(is);
+		Image image = new Image(null, fileType, 0, null, null, bdata);
 		return image;
 	}
 
