@@ -6,13 +6,12 @@ This project provides to upload files and preview images. It's simply serving im
 You can easily use for your requirements.
 
 * [Rest APIs](#rest-apis)
-* [Demo](#demo)
 * [Usage Of Project](#usage-of-project)
+* [Demo](#demo)
 
 ## Rest APIs
 
 Added methods and their usage like below;
-
 
 
 ##### Endpoints
@@ -249,8 +248,6 @@ curl -X GET http://localhost:8080/listImages | json_pp
 ```
 
 
-## Demo
-
 
 ## Usage Of Project
 
@@ -359,4 +356,11 @@ docker-compose down
 Sample images (`images/samples`) created by [Piyapong Saydaung](https://pixabay.com/tr/users/saydung89-18713596/)
 
 You can also send some requests to `http://localhost:8080`. 
+
+
+## Demo
+
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=FvQUeUE94vs"><img src="https://img.youtube.com/vi/FvQUeUE94vs/0.jpg" alt="Image Server with Spring Boot + PostgreSQL"></a>
+</div>
 
