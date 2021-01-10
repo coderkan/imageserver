@@ -38,6 +38,11 @@ GET		/api/show/200/400/FILE_NAME
 ```
 
 
+<p align="center">
+  <img width="85%" height="85%" src="images/endpoints.png">
+</p>
+
+
 >Get all image info request
 
 ```bash
